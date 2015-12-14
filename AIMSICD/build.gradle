@@ -17,8 +17,6 @@ if (isTravis) {
     buildNumber = System.getenv("BUILDOZER_BUILDNUMBER")
 }
 
-version = '0.1.38-alpha'
-
 android {
     compileSdkVersion 23
     buildToolsVersion '23.0.2'
