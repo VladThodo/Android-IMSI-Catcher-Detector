@@ -6,22 +6,27 @@
 package com.SecUpwN.AIMSICD.activities;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.SecUpwN.AIMSICD.BuildConfig;
 import com.SecUpwN.AIMSICD.R;
-import com.SecUpwN.AIMSICD.utils.MiscUtils;
 
 import io.freefair.android.injection.annotation.InjectView;
 import io.freefair.android.injection.annotation.XmlLayout;
 import io.freefair.android.injection.app.InjectionAppCompatActivity;
+
 
 @XmlLayout(R.layout.activity_about)
 public class AboutActivity extends InjectionAppCompatActivity {
@@ -51,13 +56,20 @@ public class AboutActivity extends InjectionAppCompatActivity {
     private TextView dangerTextView;
     @InjectView(R.id.textViewSkull)
     private TextView skullTextView;
-
+    private boolean closeAfterFinish = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         versionNumber.setText(getString(R.string.app_version, BuildConfig.VERSION_NAME));
-        buildNumberTextView.setText(getString(R.string.buildnumber, BuildConfig.BUILD_NUMBER));
+
+        String buildNumber = BuildConfig.BUILD_NUMBER;
+        //noinspection ConstantConditions
+        if (buildNumber == null) {
+            buildNumber = getString(R.string.n_a);
+        }
+        buildNumberTextView.setText(getString(R.string.buildnumber, buildNumber));
+
         gitShaTextView.setText(getString(R.string.git_sha, BuildConfig.GIT_SHA));
 
         //GitHub WIKI Link
@@ -131,15 +143,46 @@ public class AboutActivity extends InjectionAppCompatActivity {
         });
 
         btncredits.setOnClickListener(new View.OnClickListener() {
+            AlertDialog mCreditsDialog;
             @Override
             public void onClick(View view) {
-
-                new AlertDialog.Builder(AboutActivity.this)
+                final TextView mCreditsText = new TextView(getApplicationContext());
+                mCreditsText.setText(R.string.about_credits_content);
+                mCreditsText.setTextSize(18);
+                mCreditsText.setMaxLines(50);
+                final ScrollView mScrollView = new ScrollView(getApplicationContext());
+                mScrollView.addView(mCreditsText);
+                Animation scrollTo = (Animation)AnimationUtils.loadAnimation(getApplicationContext(), R.anim.credits_dialog_scroll);
+                mCreditsText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        closeAfterFinish = false;
+                        mCreditsText.clearAnimation();
+                    }
+                });
+                scrollTo.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {}
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        if (closeAfterFinish) {
+                            mCreditsDialog.cancel();
+                        } else {
+                        }
+                    }
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {}
+                });
+                ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) mCreditsText.getLayoutParams();
+                mlp.setMargins(50, 20, 20, 0);
+                mCreditsText.setTypeface(Typeface.DEFAULT_BOLD);
+                mCreditsText.startAnimation(scrollTo);
+                closeAfterFinish = true;
+                mCreditsDialog = new AlertDialog.Builder(AboutActivity.this)
                         .setTitle(R.string.about_credits)
-                        .setMessage(MiscUtils.setAssetsString(getApplicationContext()))
                         .setPositiveButton(android.R.string.ok, null)
+                        .setView(mScrollView)
                         .show();
-
             }
         });
     }

@@ -18,8 +18,6 @@ import android.support.v4.app.NotificationManagerCompat;
 import com.SecUpwN.AIMSICD.AIMSICD;
 import com.SecUpwN.AIMSICD.R;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,32 +29,6 @@ import io.freefair.android.util.logging.Logger;
 public class MiscUtils {
 
     private static final Logger log = AndroidLogger.forClass(MiscUtils.class);
-
-    public static String setAssetsString(Context context){
-        BufferedReader reader = null;
-        StringBuilder buildassets = new StringBuilder();
-        try {
-            reader = new BufferedReader(new InputStreamReader(context.getAssets().open("CREDITS")));
-            String rline = reader.readLine().replace("'","\\'").replace("\\n","");
-
-            while (rline != null ) {
-                buildassets.append(rline).append("\n");
-                rline = reader.readLine().replace("'","\\'").replace("\\n","");
-            }
-        } catch (Exception ee) {
-            log.error(ee.getMessage());
-        } finally {
-            if(reader != null) {
-                try {
-                    reader.close();
-                } catch (Exception ee) {
-                    log.error(ee.getMessage());
-                }
-            }
-        }
-
-        return buildassets.toString();
-    }
 
     public static String getCurrentTimeStamp(){
         //yyyyMMddHHmmss <-- this format is needed for OCID upload

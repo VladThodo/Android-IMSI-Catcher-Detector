@@ -20,6 +20,7 @@ import com.SecUpwN.AIMSICD.adapters.AIMSICDDbAdapter;
 import com.SecUpwN.AIMSICD.constants.DBTableColumnIds;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.freefair.android.injection.annotation.Inject;
 import io.freefair.android.injection.annotation.InjectView;
@@ -38,7 +39,7 @@ public class AdvancedUserSmsActivity extends InjectionAppCompatActivity {
     ListView listViewAdv;
 
     AIMSICDDbAdapter dbaccess;
-    ArrayList<CapturedSmsData> msgitems;
+    List<CapturedSmsData> msgitems;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,8 +83,10 @@ public class AdvancedUserSmsActivity extends InjectionAppCompatActivity {
                 CapturedSmsData obj_itemDetails = (CapturedSmsData) o;
 
                 if(dbaccess.deleteDetectedSms(obj_itemDetails.getId())){
-                    Toast.makeText(getApplicationContext(),"Deleted Sms Id = \n"+obj_itemDetails.getId(),Toast.LENGTH_SHORT).show();
-                }else {Toast.makeText(getApplicationContext(),"Failed to Delete",Toast.LENGTH_SHORT).show();}
+                    Toast.makeText(getApplicationContext(), "Deleted Sms Id = \n" + obj_itemDetails.getId(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Failed to Delete", Toast.LENGTH_SHORT).show();
+                }
 
                 try {
                     loadDbString();
@@ -97,7 +100,7 @@ public class AdvancedUserSmsActivity extends InjectionAppCompatActivity {
 
     }
     public void loadDbString(){
-        ArrayList<CapturedSmsData> newmsglist = new ArrayList<>();
+        List<CapturedSmsData> newmsglist = new ArrayList<>();
 
         try {
             Cursor smscur = dbaccess.returnSmsData();

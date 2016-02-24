@@ -8,27 +8,18 @@ try {
 }
 
 def isCi = "true".equals(System.getenv("CI"))
-def isTravis = "true".equals(System.getenv("TRAVIS"))
-
-def buildNumber = null
-if (isTravis) {
-    buildNumber = System.getenv("TRAVIS_BUILD_NUMBER")
-} else {
-    buildNumber = System.getenv("BUILDOZER_BUILDNUMBER")
-}
-
-version = '0.1.38-alpha'
 
 android {
     compileSdkVersion 23
     buildToolsVersion '23.0.2'
+
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 19 // Do not change: Working Icons on Android 5+
-        versionCode 38
+        versionCode 40
         testApplicationId "com.SecUpwN.AIMSICD.test"
 
-        buildConfigField 'String', 'BUILD_NUMBER', (buildNumber == null ? 'null' : "\"${buildNumber}\"")
+        buildConfigField 'String', 'BUILD_NUMBER', (getBuildNumber() == null ? 'null' : "\"${buildNumber}\"")
         buildConfigField 'String', 'GIT_SHA', (gitSha == null ? 'null' : "\"${gitSha}\"")
     }
     buildTypes {
@@ -51,7 +42,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
     lintOptions {
-        warning 'MissingTranslation', 'InvalidPackage'
+        warning 'MissingTranslation', 'InvalidPackage', 'MissingRegistered'
         abortOnError false
 
         xmlReport false
@@ -64,7 +55,6 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/LICENSE.txt'
     }
-
     productFlavors {
         system {
             versionName "$project.version-system"
@@ -103,5 +93,23 @@ dependencies {
     //compile 'com.github.amlcurran.showcaseview:library:5.3.0'
 }
 
-
+apply from: "signing.gradle"
 apply plugin: "io.freefair.android-checkstyle"
+
+checkstyle {
+    toolVersion = "6.15"
+}
+
+String getBuildNumber() {
+    String travisBuildNumber = System.getenv("TRAVIS_BUILD_NUMBER")
+    if(travisBuildNumber != null) {
+        return "T-$travisBuildNumber"
+    }
+
+    String buildozerBuildNumber = System.getenv("BUILDOZER_BUILDNUMBER")
+    if(buildozerBuildNumber != null) {
+        return "B-$buildozerBuildNumber"
+    }
+
+    return null;
+}

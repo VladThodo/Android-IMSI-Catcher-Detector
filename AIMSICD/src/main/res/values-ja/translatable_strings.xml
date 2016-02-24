@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources><string name="tracking">追跡中</string>
     <string name="device_info">電話/SIM 詳細</string>
     <string name="map_view">アンテナ地図ビューアー</string>
@@ -22,7 +22,7 @@
     <string name="preferences">プリファレンス</string>
     <string name="press_once_again_to_exit">もう一度押すと終了します。</string>
     <string name="cell_lookup">すべての現在の基地局の詳細</string>
-    <string name="send_logs">デバッグ</string>
+    <string name="debugging">デバッグ</string>
     <string name="no_network_connection_title">インターネット接続がありません</string>
     <string name="no_network_connection_message">インターネット接続がないため OpenCellID データをダウンロードすることができません。データ接続を有効にしてください!</string>
 
@@ -338,4 +338,5 @@
     <string name="pref_enable_gps_summary">基地局追跡の GPS を有効にします</string>
     <string name="n_a">N/A</string>
 
+    <string name="database_settings">データベースの設定</string>
     </resources>

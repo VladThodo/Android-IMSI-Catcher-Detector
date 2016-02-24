@@ -1,5 +1,59 @@
 # CHANGELOG of 'AIMSICD'
-----------------------
+------------------------
+
+#### [21.02.2016 - WIP-Release v0.1.40.1-alpha](https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/releases/tag/v0.1.40-alpha)
+
+* Fixed: Travis-CI does now attach the correctly signed APK again
+
+---
+
+#### [21.02.2016 - WIP-Release v0.1.40-alpha](https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/releases/tag/v0.1.40-alpha)
+
+* Removed: Purged unused imports and `ATCommandActivity`
+* Changed: Improved UX by changing main app screens to fragments
+* Changed: Improved UX by moving general screens to new menu bar
+* Updated: Made toggle menu buttons checkable (icons will be removed)
+* Updated: Norwegian Bokmål and Vietnamese translations
+* Added: Calculation of `versionName` from git-tags
+* Fixed: Lint errors and build number display in `About` screen
+
+---
+
+#### [16.02.2016 - WIP-Release v0.1.39.1-alpha](https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/releases/tag/v0.1.39.1-alpha)
+
+* Removed: Purged more unused imports from `MiscUtils.java`
+* Removed: Purged tabs for cleaning our source code a bit
+* Changed: Now storing our `CREDITS` as a string resource
+* Changed: Made sure to not use inner assignments
+* Added: `checkstyle` checks for blocks and whitespace
+* Fixed: Modified `build.gradle` to fix broken pull requests
+* Fixed: Auto-releases are now working again, added SHA1-Hash
+
+---
+
+#### [14.02.2016 - WIP-Release v0.1.39-alpha](https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/releases/tag/v0.1.39-alpha)
+
+* Removed: 2 redundant proguard rules and modifiers, unused imports and dependencies
+* Changed: `AtCommand Fragment` has been changed into `AtCommand Activity`
+* Changed: Renamed layout file to `dialog_request_gps` for code consistency
+* Updated: Norwegian Bokmål, English, German, Japanese, Dutch, and Ukrainian
+* Updated: Vietnamese, French, Russian and new Portuguese (Brazil)
+* Updated: Made fields local where possible, simplified Helpers as well as Toasters
+* Updated: Prefixed layouts with `activity_`, `fragment_` and `activity_`, now using Gradle 2.10
+* Updated: Using Optionals as return types and wrap API calls in Suppliers to use the same try-block
+* Updated: Improved `checkstyle` to force newlines at end of files, warn about names and forbidden types
+* **Added: Automatic releases compiled and signed by Travis-CI, automatically added to GitHub! ;-)**
+* Added: New GPS usage switch in `Preferences` to change initial GPS activation preference later again
+* Added: Code of Conduct within our `CONTRIBUTING.md` for respect between all developers
+* Added: Our `AIMSICD` is now also installable and updatable via the wonderfull app [XDALabs](http://forum.xda-developers.com/android/apps-games/labs-t3241866)
+* Fixed: Stationary Overlay solved by removing call to `loadFragment()` from `onRestart()`
+* Fixed: GPS notifications dialog now only shows on first launch to avoid user nagging
+* Fixed: Corrected missing SIM serial and IMSI information and minor inspection issues
+* Fixed: Mixed content in `README` is now consistent with HTTPS links and GPLv3 button
+* Fixed: Minor update of `MiscUtils.java` to prevent crash when clicking the `CREDITS`
+* Fixed: `.travis.yml` now only tries to encrypt our keystore when the vars are present
+
+---
 
 #### [30.12.2015 - WIP-Release v0.1.38-alpha](https://github.com/SecUpwN/Android-IMSI-Catcher-Detector/releases/tag/v0.1.38-alpha)
 
